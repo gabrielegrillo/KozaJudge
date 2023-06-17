@@ -2,6 +2,7 @@ import subprocess, os, glob, configparser
 
 pathEx = ''
 pathSol = ''
+timeLimit = 60
 
 def makeConfig(pathExercises: str, pathSolutions: str) -> None:
     
@@ -9,7 +10,7 @@ def makeConfig(pathExercises: str, pathSolutions: str) -> None:
     config['PATHS'] = {'exercises': pathExercises, 'solutions': pathSolutions}
 
     with open('config.ini', 'w') as configfile:
-        config.write(configfile)
+        configfile.write(config)
 
 def loadTestCases(exercise: str) -> list[str]:
     Testcases = []
@@ -30,10 +31,15 @@ def startJudging(exercise, tc):
         for j in range(len(inn)):
             innt += inn[j] 
 
+        timeoutted = False
         p = subprocess.Popen(['python3', f'/Users/gabrielegrillo/Documents/Università/Primo Semestre/Fondamenti di Programmazione/Esercizi DomJudge/{exercise}.py'], 
                             stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
-        stdout, stderr = p.communicate(input=innt)
-
+        try:
+            stdout, stderr = p.communicate(input=innt, timeout=timeLimit)
+        except TimeoutExpired:
+            p.kill()
+            timeoutted = True
+        
         with open(file_out) as f2:
             out = f2.readlines()
 
@@ -43,6 +49,8 @@ def startJudging(exercise, tc):
         
         if (stdout == outt):
             print("Testcase:",tc[i], "CORRECT ✅ ")
+        elif (timeoutted):
+            print(f"Testcase: {tc[i]} TIMEOUT EXPIRED")
         else:
             print("Testcase:",tc[i], "WRONG ❌ \n", "Expected output:", str(stdout), "Actual output:", str(outt))
         #print("Testcase:",tc[j], stdout == outt)
