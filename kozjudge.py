@@ -30,6 +30,9 @@ def loadTestCases(exercise: str) -> list[str]:
     return Testcases
 
 def startJudging(exercise, tc):
+    count_tc_passed = 0 
+    print("------------------------------------------------------------------")
+    print("Testing:", exercise)
     for i in range(len(tc)):
         file_in = f'{pathSol}/{exercise.upper()}/{tc[i]}'
         file_out = file_in[:-2] + "out"
@@ -41,14 +44,14 @@ def startJudging(exercise, tc):
         for j in range(len(inn)):
             innt += inn[j] 
 
-        timeoutted = False
         p = subprocess.Popen(['python3', f'{pathEx}/{exercise}.py'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
         
         try:
             stdout, stderr = p.communicate(input=innt, timeout=timeLimit)
         except subprocess.TimeoutExpired:
             p.kill()
-            timeoutted = True
+            print("Testcase:", tc[i], "- TIMEOUT EXPIRED ⏰")
+            continue
         
         with open(file_out) as f2:
             out = f2.readlines()
@@ -58,12 +61,19 @@ def startJudging(exercise, tc):
             outt += out[j] 
         
         if (stdout == outt):
-            print("Testcase:",tc[i], "CORRECT ✅ ")
-        elif (timeoutted):
-            print(f"Testcase: {tc[i]} TIMEOUT EXPIRED")
+            count_tc_passed += 1
+            print("Testcase:",tc[i], "- CORRECT ✅ ")
+        elif (stderr != ""):
+            print("Testcase:",tc[i], "- ERROR ❗ \n", "Actual output:", str(outt), "Error raised: ", str(stderr))
         else:
-            print("Testcase:",tc[i], "WRONG ❌ \n", "Expected output:", str(stdout), "Actual output:", str(outt))
+            print("Testcase:",tc[i], "- WRONG ❌ \n", "Expected output:", str(stdout), "Actual output:", str(outt))
         #print("Testcase:",tc[j], stdout == outt)
+    print("""------------------------------------------------------------------\n""")
+    if (count_tc_passed == len(tc)):
+        print("ALL TESTCASE PASSED! 🥳")
+    else:
+        print("NOT ALL TESTCASE PASSED! 😱")
+
 
 def startProgram():
     print(""" 

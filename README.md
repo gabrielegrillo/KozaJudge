@@ -8,12 +8,12 @@ KòzJudge is a basic (also probably stupid) solutions checker for Python exceris
 
 TODO LIST: 
 
+- Read from domjudge-problem.ini and display and/or use the following data: Timelimit, nameproblem
+
 - Create a sort of debug mode for us
-
-- Import timelimit from domjudge-problem.ini
-
-- Display name problem
 
 - Handle the exception like folder not found or file not found etc..
 
 - Test it on windows. (I'm worried about the paths...)
+
+- Make a decent logo.
