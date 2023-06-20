@@ -1,10 +1,13 @@
-# KòzJudge
+# KozaJudge
 
-![Logo](/multimedia/LOGO.png)
+<!--- ![Logo](/multimedia/LOGO.png) --->
+<img src="multimedia/LOGO.png" width=60% >
 
-Wait... what is a Kòz? It is a sheep in polish.
+Wait... what is a Koza? It is a sheep in Polish.
 
-KòzJudge is a basic (also probably stupid) solutions checker for Python excerises. Made by :heart: for [Unical](https://www.unical.it) first year [Computer Science](https://informatica.unical.it/) students. 
+KozaJudge is a basic (also probably stupid) solutions checker for Python excerises. Made by :heart: for [Unical](https://www.unical.it) first year [Computer Science](https://informatica.unical.it/) students. 
+
+If you would like to contribute to this project, here there is a list of things to do.
 
 TODO LIST: 
 
@@ -17,3 +20,5 @@ TODO LIST:
 - Test it on windows. (I'm worried about the paths...)
 
 - Make a decent logo.
+
+- Add license
