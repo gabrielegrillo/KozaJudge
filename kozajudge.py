@@ -1,14 +1,15 @@
 import subprocess, os, glob, configparser
+from pathlib import Path
 
 nameProblem = ""
 pathEx = ''
 pathSol = '' # Testcases
-timeLimit = 30
+timeLimit = 20
 
 def makeConfig(pathExercises: str, pathSolutions: str) -> None:
     config = configparser.ConfigParser()
     config['PATHS'] = {'exercises': f"{pathExercises}", 'solutions': f"{pathSolutions}"}
-    config['VALUES']['timelimit'] = 20
+    # config['VALUES']['timelimit'] = 20
 
     with open('config.ini', 'w') as configfile:
         config.write(configfile)
@@ -23,6 +24,7 @@ def loadConfig() -> None:
     else:
         print("Error! Check the config file")
 
+# Adjust paths
 def loadDomjudgeConfig(path) -> None:
     config = configparser.ConfigParser()
     if (os.path.exists(f"{path}/domjudge-problem.ini")):
@@ -34,9 +36,8 @@ def loadDomjudgeConfig(path) -> None:
 def loadTestCases(exercise: str) -> list[str]:
     Testcases = []
     try:
-        os.chdir(f"{pathSol}/{exercise}")
+        os.chdir(os.path.join(pathSol, exercise))
     except FileNotFoundError:
-        print (f"Testcase were not found and/or Folder not found. Please check the folder:\n{pathSol}/{exercise}")
         return Testcases
     
     for file in glob.glob(f"{exercise}_*.in"):
@@ -48,7 +49,7 @@ def startJudging(exercise, tc):
     print("------------------------------------------------------------------")
     print("Testing:", exercise)
     for i in range(len(tc)):
-        file_in = f'{pathSol}/{exercise.upper()}/{tc[i]}'
+        file_in = os.path.join(pathSol, exercise, tc[i])
         file_out = file_in[:-2] + "out"
 
         with open(file_in) as f1:
@@ -58,7 +59,7 @@ def startJudging(exercise, tc):
         for j in range(len(inn)):
             innt += inn[j] 
 
-        p = subprocess.Popen(['python3', f'{pathEx}/{exercise}.py'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
+        p = subprocess.Popen(['python3', os.path.join(pathEx, f"{exercise}.py")], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
         
         try:
             stdout, stderr = p.communicate(input=innt, timeout=timeLimit)
@@ -66,6 +67,11 @@ def startJudging(exercise, tc):
             p.kill()
             print("Testcase:", tc[i], "- TIMEOUT EXPIRED ⏰")
             continue
+        
+        if (p.returncode != 0):
+            print("Testcase:",tc[i], "- ERROR ❗ \n", "Actual output:", str(stdout), "Error raised: ", str(p.returncode))
+            continue
+
         
         with open(file_out) as f2:
             out = f2.readlines()
@@ -77,10 +83,8 @@ def startJudging(exercise, tc):
         if (stdout == outt):
             count_tc_passed += 1
             print("Testcase:",tc[i], "- CORRECT ✅ ")
-        elif (stderr != ""):
-            print("Testcase:",tc[i], "- ERROR ❗ \n", "Actual output:", str(outt), "Error raised: ", str(stderr))
         else:
-            print("Testcase:",tc[i], "- WRONG ❌ \n", "Expected output:", str(stdout), "Actual output:", str(outt))
+            print("Testcase:",tc[i], "- WRONG ❌ \n", "Expected output:", str(outt), "Actual output:", str(stdout))
         #print("Testcase:",tc[j], stdout == outt)
     print("""------------------------------------------------------------------\n""")
     if (count_tc_passed == len(tc)):
@@ -101,14 +105,16 @@ def startProgram() -> None:
     testcase = loadTestCases(file)
     if (testcase != []):
         startJudging(file,testcase)
+    else:
+        print("Testcase were not found and/or Folder with the excercise not found. Please check the folders")
 
 def main():
     if (os.path.exists("config.ini")):
         loadConfig()
         startProgram()
     else:
-        pathEx = input("Please insert the path where your exercises are located: ")
-        pathSol = input("Please insert the path where your solutions are located: ")
+        pathEx = Path(input("Please insert the path where your exercises are located: "))
+        pathSol = Path(input("Please insert the path where your solutions are located: "))
         print()
         makeConfig(pathEx, pathSol)
         loadConfig()

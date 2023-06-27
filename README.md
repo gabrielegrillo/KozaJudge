@@ -11,6 +11,8 @@ If you would like to contribute to this project, here there is a list of things 
 
 TODO LIST: 
 
+- Insert a sort of guide before entering the paths
+
 - Read from domjudge-problem.ini and display and/or use the following data: Timelimit, nameproblem
 
 - Create a sort of debug mode for us
