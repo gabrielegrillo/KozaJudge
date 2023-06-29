@@ -3,7 +3,7 @@ from pathlib import Path
 
 nameProblem = ""
 pathEx = ''
-pathSol = '' # Testcases
+pathSol = ''
 timeLimit = 20
 
 def makeConfig(pathExercises: str, pathSolutions: str) -> None:
@@ -24,11 +24,11 @@ def loadConfig() -> None:
     else:
         print("Error! Check the config file")
 
-# Adjust paths
+# TODO: Adjust paths
 def loadDomjudgeConfig(path) -> None:
     config = configparser.ConfigParser()
-    if (os.path.exists(f"{path}/domjudge-problem.ini")):
-        with open(f"{path}/domjudge-problem.ini") as stream:
+    if (os.path.exists(os.path.join(path, "domjudge-problem.ini"))):
+        with open(os.path.join(path, "domjudge-problem.ini")) as stream:
             # Little trick to cheat the parser. 
             config.read_string("[top]\n" + stream.read())
             timeLimit = config["top"]["timelimit"]
@@ -58,8 +58,8 @@ def startJudging(exercise, tc):
         innt = ""
         for j in range(len(inn)):
             innt += inn[j] 
-
-        p = subprocess.Popen(['python3', os.path.join(pathEx, f"{exercise}.py")], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
+        # Get the path of python and run it
+        p = subprocess.Popen([os.environ['_'], os.path.join(pathEx, f"{exercise}.py")], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
         
         try:
             stdout, stderr = p.communicate(input=innt, timeout=timeLimit)
