@@ -92,7 +92,7 @@ def startJudging(exercise, tc):
     else:
         print("NOT ALL TESTCASE PASSED! 😱")
 
-def startProgram() -> None:
+def startProgram(ex="") -> None:
     print(""" 
 ██╗░░██╗░█████╗░███████╗░█████╗░░░░░░██╗██╗░░░██╗██████╗░░██████╗░███████╗
 ██║░██╔╝██╔══██╗╚════██║██╔══██╗░░░░░██║██║░░░██║██╔══██╗██╔════╝░██╔════╝
@@ -101,7 +101,10 @@ def startProgram() -> None:
 ██║░╚██╗╚█████╔╝███████╗██║░░██║╚█████╔╝╚██████╔╝██████╔╝╚██████╔╝███████╗
 ╚═╝░░╚═╝░╚════╝░╚══════╝╚═╝░░╚═╝░╚════╝░░╚═════╝░╚═════╝░░╚═════╝░╚══════╝\n""")
     
-    file = input("Welcome to KozaJudge!\nPlease insert the name of the exercise: ")
+    if (ex == ""):
+        file = input("Welcome to KozaJudge!\nPlease insert the name of the exercise: ")
+    else:
+        file = ex
     testcase = loadTestCases(file)
     if (testcase != []):
         startJudging(file,testcase)
@@ -112,14 +115,11 @@ def main():
     if (os.path.exists("config.ini")):
         loadConfig()
         if (len(sys.argv) > 1):
-            testcase = loadTestCases(sys.argv[1])
-            if (testcase != []):
-                startJudging(sys.argv[1],testcase)
-            else:
-                print("Testcase were not found and/or Folder with the excercise not found. Please check the folders")
+            startProgram(sys.argv[1])
         else:
             startProgram()
     else:
+        print("Welcome to KozaJudge, follow the instructions below:")
         pathEx = Path(input("Please insert the path where your exercises are located: "))
         pathSol = Path(input("Please insert the path where your solutions are located: "))
         print()
