@@ -44,5 +44,3 @@ If you would like to contribute to this project, here there is a list of things 
 - Make a decent logo.
 
 - Add license
-
-- Translate the readme in italian.
