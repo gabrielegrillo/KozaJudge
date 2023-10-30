@@ -105,6 +105,7 @@ def startProgram(ex="") -> None:
         file = input("Welcome to KozaJudge!\nPlease insert the name of the exercise: ")
     else:
         file = ex
+    
     testcase = loadTestCases(file)
     if (testcase != []):
         startJudging(file,testcase)

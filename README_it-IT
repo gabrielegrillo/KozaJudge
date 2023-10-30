@@ -1,20 +1,34 @@
-Un momento . . . che cos'é una Koza? É una pecora in Polacco!
-KozaJudge é un checker di soluzioni di base (molto infantile) per esercizi in Python. Realizzato con il ❤️ per gli studenti del primo anno di Informatica dell'UniCal.
+# KozaJudge
+Un momento . . . che cos'é una Koza? É una pecora in [Polacco]((https://en.wiktionary.org/wiki/koza#Polish).)!
 
-Come si utilizza?
-Prima di scaricare la repository, bisogna strutturare in maniera ben organizzata gli esercizi e le cartelle delle soluzioni.
+KozaJudge é un checker di soluzioni di base (molto infantile) per esercizi in Python. Realizzato con il  per gli studenti del primo anno di [Informatica](https://informatica.unical.it/) dell'Unical.
 
-La struttura dovra somigliare alla seguente:
-- Soluzioni ( Cartella madre )
+## Pre-requisiti
+Prima di scaricare la repository, bisogna strutturare in maniera ben organizzata la cartella degli esercizi e delle soluzioni.
 
-- Esercizio(n) ( Sottocartelle per il risolutore )
+La struttura dovrà essere uguale alla seguente:
+```
+soluzioni/
+├── esercizio1/
+│   ├── esercizio1_1.in
+│   ├── esercizio1_1.out
+│   ├── esercizio1_2.in
+│   └── esercizio1_2.out
+├── esercizio2/
+│   ├── esercizio2_1.in
+│   ├── esercizio2_1.out
+```
 
-- Esercizio(n_n.in) o Esercizio(n_n.out)
+Per ogni testcase bisognavere un file {nome_esercizio}\_{numero_testcase}.in per l'input e un file {nome_esercizio}\_{numero_testcase}.out per controllare la risposta.
 
 
-Per ogni testcase troverete un file {nome_esercizio}_{numero_testcase}.in e un file {nome_esercizio}_{numero_testcase}.out
+## Come si usa?
+
+BOZZA! CONTINUARE!
+
+Avviate per la prima volyta...
 
 Fatto ció, si potrá clonare la repository e seguire le istruzioni del programma.
 
-Buona Divertimento!
+# Buon Divertimento!
 
