@@ -14,15 +14,23 @@ One folder for the exercises and the second one for the solutions.
 
 The structure of the solutions folder is this:
 ```
-solutions/
-├── excerise1/
-│   ├── excerise1_1.in
-│   ├── excerise1_1.out
-│   ├── excerise1_2.in
-│   └── excerise1_2.out
-├── excerise2/
-│   ├── excerise2_1.in
-│   ├── excerise2_1.out
+Testcases/
+├── excercise1/
+│   ├── excercise1_1.in
+│   ├── excercise1_1.out
+│   ├── excercise1_2.in
+│   └── excercise1_2.out
+├── excercise2/
+│   ├── excercise2_1.in
+│   ├── excercise2_1.out
+├── excercise3/
+│   ├── excercise3_1.in
+│   ├── excercise3_1.out
+
+Exercises/
+├── excercise1.py
+├── excercise2.py
+├── excercise3.py
 ```
 For each testcase there is a file with {name_excerise}\_{testcase_number}.in and {name_excerise}_{testcase_number}.out
 
@@ -33,16 +41,21 @@ After that, clone the repository and follow the istructions' program.
 
 If you would like to contribute to this project, here there is a list of things to do.
 
-- Deploy it as a Python Package or make it able to install it on local machine (or maybe make a GUI).
+- [X] Translate the readme in italian.
 
-- Insert a sort of guide before entering the paths in the setup. 
+- [X] Test it on windows.
+      
+- [ ] Deploy it as a Python Package or make it able to install it on local machine (or maybe make a GUI).
 
-- Create a sort of debug mode for us
+- [ ] Insert a sort of guide before entering the paths in the setup. 
 
-- Test it on windows. (I'm worried about the paths...)
+- [ ] Create a sort of debug mode for us
 
-- Make a decent logo.
+- [ ] Make a decent logo.
 
-- Add license
+- [ ] Add license
 
-- Translate the readme in italian.
+## Contributors
+<a href="https://github.com/gabrielegrillo/KozaJudge/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=gabrielegrillo/KozaJudge" height="50"/>
+</a>
