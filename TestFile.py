@@ -36,7 +36,11 @@ class Test:
         self.testcase = self.getTestcase(name)
         self.error = False
         self.risultati = {} # Se si fa con i thread, per tenere traccia dei vari testcase
+        self.title = name
 
+        if self.currentOs == "Mac" or self.currentOs == "Linux":
+            self.exPath = os.getcwd() + "/Exercises"
+            self.testPath = os.getcwd() + "/Testcases"
     def testExercise(self):
         execString = [self.pythonDir, os.path.join(self.exPath, f"{self.name}.py")]  # Windows Default
 
@@ -46,7 +50,8 @@ class Test:
             execString = [self.pythonDir, os.path.join(self.exPath, f"{self.name}.py")]
         elif self.currentOs == "Linux":
             pass
-
+        print(f"\t### TESTING {self.title} ###")
+        print("------------------------------")
         for i, v in self.testcase.items():
             _input = v["input"]
             _output = v["output"]
@@ -61,33 +66,55 @@ class Test:
                     # return normale con il for
                     # raise KozaError(stdout, stderr)
                     self.error = True
-                    print(
-                        f"Testcase: {i+1}, - ERROR ❌ \nExpected output: {_output} Actual output: {str(stdout)} \nError: {stderr}")
-                else:
-                    if _output == stdout:
-                        print(f"Testcase: {i+1} - CORRECT ✅")
-                    elif (_output + "\n") == stdout:
-                        self.error = True
-                        print(f"Testcase: {i+1} - SEMI-CORRECT ⚠️ Check for the end = \"\" in the print")
+                    if i < 9:
+                        print(
+                            f"Testcase: 0{i + 1}, - ERROR ❌ \nExpected output: {_output} Actual output: {str(stdout)} \nError: {stderr}".ljust(30))
                     else:
                         print(
-                            f"Testcase: {i+1}, - WRONG ❌ \nExpected output: {_output} Actual output: {str(stdout)}")
+                            f"Testcase: {i + 1}, - ERROR ❌ \nExpected output: {_output} Actual output: {str(stdout)} \nError: {stderr}".ljust(30))
+                else:
+                    if _output == stdout:
+                        if i < 9:
+                            print(f"Testcase: 0{i + 1} - CORRECT ✅".ljust(30))
+                        else:
+
+                            print(f"Testcase: {i+1} - CORRECT ✅".ljust(30))
+                    elif (_output + "\n") == stdout:
+                        self.error = True
+                        if i < 9:
+                            print(f"Testcase: 0{i + 1} - SEMI-CORRECT ⚠️ Check for the end = \"\" in the print")
+                        else:
+                            print(f"Testcase: {i + 1} - SEMI-CORRECT ⚠️ Check for the end = \"\" in the print")
+                    else:
+                        if i < 9:
+                            print(
+                                f"Testcase: 0{i + 1} - WRONG ❌ \nExpected output: {_output} Actual output: {str(stdout)}".ljust(30))
+                        else:
+                            print(
+                                f"Testcase: {i + 1} - WRONG ❌ \nExpected output: {_output} Actual output: {str(stdout)}".ljust(30))
             except subprocess.TimeoutExpired:
                 p.kill()
                 self.error = True
-                print(f"Testcase: {i+1} - TIMEOUT EXPIRED ⏰")
+                if i < 9:
+                    print(f"Testcase: 0{i + 1} - TIMEOUT EXPIRED ⏰".ljust(30))
+                else:
+                    print(f"Testcase: {i + 1} - TIMEOUT EXPIRED ⏰".ljust(30))
 
         if not self.error:
-            print("ALL TESTCASE PASSED! 🥳")
+            print("------------------------------")
+            print("\tALL TESTCASE PASSED! 🥳")
         else:
-            print("NOT ALL TESTCASE PASSED! 😱")
+            print("------------------------------")
+            print("\tNOT ALL TESTCASE PASSED! 😱")
 
     # Windows, Linux or Mac
     def whatOs(self):
         currentOs = os.environ['OS'].lower()
-        if currentOs in "windows":
+        windos = ["win32", "windows"]
+        mec = ["darwin", "mac"]
+        if currentOs in windos:
             return "Windows"
-        elif currentOs in "mac":
+        elif currentOs in mec:
             return "Mac"
         else:
             return "Linux"
@@ -97,11 +124,17 @@ class Test:
 
         ain = []
         aout = []
+        nomeIn = self.testPath + f"\\{name}\\*.in"
+        nomeOut = self.testPath + f"\\{name}\\*.out"
 
-        for file in glob.glob(os.getcwd() + f"\\Testcases\\{name}\\*.in"):
+        if self.currentOs == "Mac" or self.currentOs == "Linux":
+            nomeIn = self.testPath + f"/{name}/*.in"
+            nomeOut = self.testPath + f"/{name}/*.out"
+
+        for file in glob.glob(nomeIn):
             ain.append(file)
 
-        for file in glob.glob(os.getcwd() + f"\\Testcases\\{name}\\*.out"):
+        for file in glob.glob(nomeOut):
             aout.append(file)
 
         ain.sort()
@@ -131,13 +164,15 @@ class Test:
                 # Little trick to cheat the parser.
                 config.read_string("[top]\n" + stream.read())
                 self.timeout = float(config["top"]["timelimit"].rstrip("'").lstrip("'"))
+                if len(config["top"]["name"].rstrip("'").lstrip("'")) >= 3:
+                    self.title = config["top"]["name"].rstrip("'").lstrip("'")
         else:
             self.timeout = 45.0
 
 
 
 def prova():
-    ciao = Test("esercizio1")
+    ciao = Test("N56")
     ciao.testExercise()
 
 
