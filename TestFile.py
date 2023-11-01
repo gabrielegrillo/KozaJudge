@@ -6,7 +6,7 @@ import json
 import glob
 import configparser
 
-_DEBUG = True
+_DEBUG = False
 
 
 class KozaError(Exception):
@@ -106,13 +106,13 @@ class Test:
 
             if not self.error and len(self.testcase) >= 1:
                 print("------------------------------------")
-                print("\tALL TESTCASE PASSED! 🥳")
+                print("\tALL TESTCASES PASSED! 🥳")
             elif not self.error and len(self.testcase) == 0:
                 print("------------------------------------")
                 print("\tNO TESTCASE FOUND! ")
             else:
                 print("------------------------------------")
-                print("\tNOT ALL TESTCASE PASSED! 😱")
+                print("\tNOT ALL TESTCASES PASSED! 😱")
         else:
             print(f"Exercise with the name: {self.name} NOT FOUND!")
 
@@ -156,9 +156,9 @@ class Test:
                 ouut = "".join(f.readlines())
 
 
-            # Find name testcase
+            # Find name file testcase
             nomefile = ain[i]
-            char = '/' if self.whatOs() == "Linux" or "Mac" else '\\'
+            char = '/' if (self.whatOs() == "Linux" or self.whatOs() == "Mac") else '\\'
             nomefile = nomefile[nomefile.rindex(char)+1:]
 
             Testcases[i] = {
