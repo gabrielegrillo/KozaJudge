@@ -158,7 +158,7 @@ class Test:
 
             # Find name file testcase
             nomefile = ain[i]
-            char = '/' if (self.whatOs() == "Linux" or self.whatOs() == "Mac") else '\\'
+            char = '/' if (self.currentOs == "Linux" or self.currentOs == "Mac") else '\\'
             nomefile = nomefile[nomefile.rindex(char)+1:]
 
             Testcases[i] = {
