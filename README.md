@@ -7,7 +7,7 @@ Wait... what is a Koza? It is a sheep in [Polish](https://en.wiktionary.org/wiki
 
 KozaJudge is a basic (also probably stupid) solutions checker for Python excerises. Made by :heart: for [Unical](https://www.unical.it) first year [Computer Science](https://informatica.unical.it/) students. 
 
-## How to use it
+## Prerequisites
 
 Before downloading the repository, organise your exercises and solutions folder. 
 One folder for the exercises and the second one for the solutions.
@@ -37,6 +37,11 @@ For each testcase there is a file with {name_excerise}\_{testcase_number}.in and
 After that, clone the repository and follow the istructions' program.
 
 
+## Contributors
+<a href="https://github.com/gabrielegrillo/KozaJudge/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=gabrielegrillo/KozaJudge" height="50"/>
+</a>
+
 ## To do List: 
 
 If you would like to contribute to this project, here there is a list of things to do.
@@ -45,7 +50,7 @@ If you would like to contribute to this project, here there is a list of things 
 
 - [X] Test it on windows.
       
-- [ ] Deploy it as a Python Package or make it able to install it on local machine (or maybe make a GUI).
+- [ ] Deploy it as a Python Package or make a GUI.
 
 - [ ] Insert a sort of guide before entering the paths in the setup. 
 
@@ -55,7 +60,3 @@ If you would like to contribute to this project, here there is a list of things 
 
 - [ ] Add license
 
-## Contributors
-<a href="https://github.com/gabrielegrillo/KozaJudge/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=gabrielegrillo/KozaJudge" height="50"/>
-</a>

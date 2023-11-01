@@ -1,11 +1,12 @@
 import os
+import platform
 import sys
 import subprocess
 import json
 import glob
 import configparser
 
-_DEBUG = False
+_DEBUG = True
 
 
 class KozaError(Exception):
@@ -20,8 +21,8 @@ class KozaError(Exception):
 class Test:
     pythonDir = sys.executable
     currentOs = ""
-    testPath = os.getcwd() + "/Testcases"
-    exPath = os.getcwd() + "/Exercises"
+    testPath = os.path.join(os.getcwd(), "Testcases")
+    exPath = os.path.join(os.getcwd(), "Exercises")
     timeout = 0
 
     # name = nome dell'esercizio
@@ -38,29 +39,26 @@ class Test:
         self.risultati = {}  # Se si fa con i thread, per tenere traccia dei vari testcase
         self.title = name
 
-        if self.currentOs == "Mac" or self.currentOs == "Linux":
-            self.exPath = os.getcwd() + "/Exercises"
-            self.testPath = os.getcwd() + "/Testcases"
+        self.exPath = os.path.join(os.getcwd(), "Exercises")
+        self.testPath = os.path.join(os.getcwd(),  "Testcases")
+
+
+        # if self.currentOs == "Mac" or self.currentOs == "Linux":
+        #     self.exPath = os.getcwd() + "/Exercises"
+        #     self.testPath = os.getcwd() + "/Testcases"
 
         self.exist = self.fileExists()
 
     def testExercise(self):
         if self.exist:
-            execString = [self.pythonDir, os.path.join(self.exPath, f"{self.name}.py")]  # Windows Default
-
-            if self.currentOs == "Windows":
-                pass
-            elif self.currentOs == "Mac":
-                execString = [self.pythonDir, os.path.join(self.exPath, f"{self.name}.py")]
-            elif self.currentOs == "Linux":
-                pass
+            execString = [self.pythonDir, os.path.join(self.exPath, f"{self.name}.py")] 
             print(f"\t### TESTING {self.title} ###")
-            print("------------------------------")
+            print("------------------------------------")
             for i, v in self.testcase.items():
+                _namefile = v["namefile"]
                 _input = v["input"]
                 _output = v["output"]
-                p = subprocess.Popen(execString, stdin=subprocess.PIPE,
-                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                p = subprocess.Popen(execString, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
                 try:
                     stdout, stderr = p.communicate(input=_input, timeout=self.timeout)
@@ -71,61 +69,58 @@ class Test:
                         # raise KozaError(stdout, stderr)
                         self.error = True
                         if i < 9:
-                            print(
-                                f"Testcase: 0{i + 1}, - ERROR ❌ \nExpected output: {_output} Actual output: {str(stdout)} \nError: {stderr}".ljust(
-                                    30))
+                            print(f"Testcase: 0{i+1}, File: {_namefile} - ERROR ❌ \nExpected output: {_output} Actual output: {str(stdout)} \nError: {stderr}".ljust(30))
                         else:
                             print(
-                                f"Testcase: {i + 1}, - ERROR ❌ \nExpected output: {_output} Actual output: {str(stdout)} \nError: {stderr}".ljust(
+                                f"Testcase: {i+1}, File: {_namefile} - ERROR ❌ \nExpected output: {_output} Actual output: {str(stdout)} \nError: {stderr}".ljust(
                                     30))
                     else:
                         if _output == stdout:
                             if i < 9:
-                                print(f"Testcase: 0{i + 1} - CORRECT ✅".ljust(30))
+                                print(f"Testcase: 0{i+1} - CORRECT ✅".ljust(30))
                             else:
-
-                                print(f"Testcase: {i + 1} - CORRECT ✅".ljust(30))
+                                print(f"Testcase: {i+1} - CORRECT ✅".ljust(30))
                         elif (_output + "\n") == stdout:
                             self.error = True
                             if i < 9:
-                                print(f"Testcase: 0{i + 1} - SEMI-CORRECT ⚠️ Check for the end = \"\" in the print")
+                                print(f"Testcase: 0{i+1}, File: {_namefile} - SEMI-CORRECT ⚠️  Check for the end = \"\" in the print")
                             else:
-                                print(f"Testcase: {i + 1} - SEMI-CORRECT ⚠️ Check for the end = \"\" in the print")
+                                print(f"Testcase: {i+1}, File: {_namefile} - SEMI-CORRECT ⚠️  Check for the end = \"\" in the print")
                         else:
                             self. error = True
                             if i < 9:
                                 print(
-                                    f"Testcase: 0{i + 1} - WRONG ❌ \nExpected output: {_output} Actual output: {str(stdout)}".ljust(
+                                    f"Testcase: 0{i+1}, File: {_namefile} - WRONG ❌ \nExpected output: {_output} Actual output: {str(stdout)}".ljust(
                                         30))
                             else:
                                 print(
-                                    f"Testcase: {i + 1} - WRONG ❌ \nExpected output: {_output} Actual output: {str(stdout)}".ljust(
+                                    f"Testcase: {i+1}, File: {_namefile} - WRONG ❌ \nExpected output: {_output} Actual output: {str(stdout)}".ljust(
                                         30))
                 except subprocess.TimeoutExpired:
                     p.kill()
                     self.error = True
                     if i < 9:
-                        print(f"Testcase: 0{i + 1} - TIMEOUT EXPIRED ⏰".ljust(30))
+                        print(f"Testcase: {v[i]} - TIMEOUT EXPIRED ⏰".ljust(30))
                     else:
-                        print(f"Testcase: {i + 1} - TIMEOUT EXPIRED ⏰".ljust(30))
+                        print(f"Testcase: {v[i]} - TIMEOUT EXPIRED ⏰".ljust(30))
 
             if not self.error and len(self.testcase) >= 1:
-                print("------------------------------")
+                print("------------------------------------")
                 print("\tALL TESTCASE PASSED! 🥳")
             elif not self.error and len(self.testcase) == 0:
-                print("------------------------------")
+                print("------------------------------------")
                 print("\tNO TESTCASE FOUND! ")
             else:
-                print("------------------------------")
+                print("------------------------------------")
                 print("\tNOT ALL TESTCASE PASSED! 😱")
         else:
             print(f"Exercise with the name: {self.name} NOT FOUND!")
 
     #  Windows, Linux or Mac
     def whatOs(self):
-        currentOs = os.environ['OS'].lower()
-        windos = ["win32", "windows"]
-        mec = ["darwin", "mac"]
+        currentOs = platform.system()
+        windos = ["win32", "Windows"]
+        mec = ["Darwin", "mac"]
         if currentOs in windos:
             return "Windows"
         elif currentOs in mec:
@@ -138,8 +133,8 @@ class Test:
 
         ain = []
         aout = []
-        nomeIn = self.testPath + f"/{name}/*.in"
-        nomeOut = self.testPath + f"/{name}/*.out"
+        nomeIn = os.path.join(self.testPath, name, "*.in")
+        nomeOut = os.path.join(self.testPath, name, "*.out")
 
         for file in glob.glob(nomeIn):
             ain.append(file)
@@ -160,7 +155,14 @@ class Test:
             with open(aout[i]) as f:
                 ouut = "".join(f.readlines())
 
+
+            # Find name testcase
+            nomefile = ain[i]
+            char = '/' if self.whatOs() == "Linux" or "Mac" else '\\'
+            nomefile = nomefile[nomefile.rindex(char)+1:]
+
             Testcases[i] = {
+                "namefile": nomefile,
                 "input": innt,
                 "output": ouut,
             }
@@ -181,6 +183,7 @@ class Test:
 
     def fileExists(self):
         esiste = False
+
         if os.path.exists(self.testPath) and os.path.exists(self.exPath):
             if os.path.exists(os.path.join(self.exPath, f"{self.name}.py")):
                 esiste = True
@@ -189,7 +192,7 @@ class Test:
 
 
 def prova():
-    ciao = Test("N1")
+    ciao = Test("Lab2Set")
     ciao.testExercise()
 
 
