@@ -7,6 +7,8 @@ Wait... what is a Koza? It is a sheep in [Polish](https://en.wiktionary.org/wiki
 
 KozaJudge is a basic (also probably stupid) solutions checker for Python excerises. Made by :heart: for [Unical](https://www.unical.it) first year [Computer Science](https://informatica.unical.it/) students. 
 
+## [PER IL README IN ITALIANO, CLICCA QUI!](/README_it-IT.md)
+
 ## Prerequisites
 
 Before downloading the repository, organise your exercises and solutions folder. 
@@ -36,6 +38,18 @@ For each testcase there is a file with {name_excerise}\_{testcase_number}.in and
 
 After that, clone the repository and follow the istructions' program.
 
+
+## How to use it
+
+Download the last release. Then, open a terminal from the folder where the release is located. 
+
+Execute the following command as shown: 
+[![asciicast](https://asciinema.org/a/negXVftvtJIizJOAWF6Cauhvs.svg)](https://asciinema.org/a/negXVftvtJIizJOAWF6Cauhvs)
+
+
+
+or you can put the Exercise in the parameters of the command.
+[![asciicast](https://asciinema.org/a/ccPTaHmhjPxxtmpfKZJCwZFSb.svg)](https://asciinema.org/a/ccPTaHmhjPxxtmpfKZJCwZFSb)
 
 ## Contributors
 <a href="https://github.com/gabrielegrillo/KozaJudge/graphs/contributors">

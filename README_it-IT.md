@@ -27,11 +27,20 @@ Per ogni testcase bisognavere un file {nome_esercizio}\_{numero_testcase}.in per
 
 ## Come si usa?
 
-BOZZA! CONTINUARE!
+Scaricate l'ultima release da questo [link](https://github.com/gabrielegrillo/KozaJudge/releases). Dopo che avete scelto la release che vi serve, dovete [aprire un terminale](https://www.aranzulla.it/come-aprire-il-prompt-dei-comandi-1104722.html) nella cartella dove è presente il programma. 
 
-Avviate per la prima volta...
+Fatto ciò, digitate:
+```cmd
+python3 kozajudge.py
+```
 
-Fatto ció, si potrá clonare la repository e seguire le istruzioni del programma.
+E all'avvio del programma vi chiederà quale esercizio volete testare. Come in questo caso:
+[![asciicast](https://asciinema.org/a/negXVftvtJIizJOAWF6Cauhvs.svg)](https://asciinema.org/a/negXVftvtJIizJOAWF6Cauhvs)
+
+Oppure per chi ha più dimestichezza con il terminale, può mettere il nome del esercizio come parametro del comando.
+[![asciicast](https://asciinema.org/a/ccPTaHmhjPxxtmpfKZJCwZFSb.svg)](https://asciinema.org/a/ccPTaHmhjPxxtmpfKZJCwZFSb)
+
+Se riscontrate qualche difficoltà con il tool, vi potete tranquillamente rivolgere a noi! :heart:
 
 ## Collaboratori
 <a href="https://github.com/gabrielegrillo/KozaJudge/graphs/contributors">
