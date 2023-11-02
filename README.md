@@ -44,12 +44,11 @@ After that, clone the repository and follow the istructions' program.
 Download the last release. Then, open a terminal from the folder where the release is located. 
 
 Execute the following command as shown: 
-[![asciicast](https://asciinema.org/a/negXVftvtJIizJOAWF6Cauhvs.svg)](https://asciinema.org/a/negXVftvtJIizJOAWF6Cauhvs)
-
+<img src="multimedia/gifs/k2.gif">
 
 
 or you can put the Exercise in the parameters of the command.
-[![asciicast](https://asciinema.org/a/ccPTaHmhjPxxtmpfKZJCwZFSb.svg)](https://asciinema.org/a/ccPTaHmhjPxxtmpfKZJCwZFSb)
+<img src="multimedia/gifs/k1.gif">
 
 ## Contributors
 <a href="https://github.com/gabrielegrillo/KozaJudge/graphs/contributors">

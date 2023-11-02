@@ -35,10 +35,10 @@ python3 kozajudge.py
 ```
 
 E all'avvio del programma vi chiederà quale esercizio volete testare. Come in questo caso:
-[![asciicast](https://asciinema.org/a/negXVftvtJIizJOAWF6Cauhvs.svg)](https://asciinema.org/a/negXVftvtJIizJOAWF6Cauhvs)
+<img src="multimedia/gifs/k2.gif">
 
 Oppure per chi ha più dimestichezza con il terminale, può mettere il nome del esercizio come parametro del comando.
-[![asciicast](https://asciinema.org/a/ccPTaHmhjPxxtmpfKZJCwZFSb.svg)](https://asciinema.org/a/ccPTaHmhjPxxtmpfKZJCwZFSb)
+<img src="multimedia/gifs/k1.gif">
 
 Se riscontrate qualche difficoltà con il tool, vi potete tranquillamente rivolgere a noi! :heart:
 
