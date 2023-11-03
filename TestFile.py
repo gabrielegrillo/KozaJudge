@@ -21,27 +21,28 @@ class KozaError(Exception):
 class Test:
     pythonDir = sys.executable
     currentOs = ""
-    testPath = os.path.join(os.getcwd(), "Testcases")
-    exPath = os.path.join(os.getcwd(), "Exercises")
+    testPath = ''
+    exPath = ''
     timeout = 0
 
     # name = nome dell'esercizio
     # diffPath = "nomePath", se ha una path diversa dalla default 'Exercises'
     # samePath = True, se il .py si trova nella cartella dei Testcases, con lo stesso nome
     def __init__(self, name, type="py"):
+
         self.name = name
         self.type = type
-        self.curPath = os.getcwd()
+
+        self.curPath = os.path.realpath(os.path.dirname(__file__))
+        self.exPath = os.path.join(self.curPath, "Exercises")
+        self.testPath = os.path.join(self.curPath,  "Testcases")
+
         self.getTimeout()
         self.currentOs = self.whatOs()
         self.testcase = self.getTestcase(name)
         self.error = False
         self.risultati = {}  # Se si fa con i thread, per tenere traccia dei vari testcase
         self.title = name
-
-        self.exPath = os.path.join(os.getcwd(), "Exercises")
-        self.testPath = os.path.join(os.getcwd(),  "Testcases")
-
 
         # if self.currentOs == "Mac" or self.currentOs == "Linux":
         #     self.exPath = os.getcwd() + "/Exercises"
@@ -69,10 +70,10 @@ class Test:
                         # raise KozaError(stdout, stderr)
                         self.error = True
                         if i < 9:
-                            print(f"Testcase: 0{i+1}, File: {_namefile} - ERROR ❌ \nExpected output: {_output} Actual output: {str(stdout)} \nError: {stderr}".ljust(30))
+                            print(f"Testcase: 0{i+1}, File: {_namefile} - ERROR ❌ \nInput: \n{_input}Expected output: {_output} Actual output: {str(stdout)} \nError: {stderr}".ljust(30))
                         else:
                             print(
-                                f"Testcase: {i+1}, File: {_namefile} - ERROR ❌ \nExpected output: {_output} Actual output: {str(stdout)} \nError: {stderr}".ljust(
+                                f"Testcase: {i+1}, File: {_namefile} - ERROR ❌ \nInput: \n{_input}Expected output: {_output} Actual output: {str(stdout)} \nError: {stderr}".ljust(
                                     30))
                     else:
                         if _output == stdout:
@@ -90,11 +91,11 @@ class Test:
                             self. error = True
                             if i < 9:
                                 print(
-                                    f"Testcase: 0{i+1}, File: {_namefile} - WRONG ❌ \nExpected output: {_output} Actual output: {str(stdout)}".ljust(
+                                    f"Testcase: 0{i+1}, File: {_namefile} - WRONG ❌ \nInput: \n{_input}Expected output: {_output} Actual output: {str(stdout)}".ljust(
                                         30))
                             else:
                                 print(
-                                    f"Testcase: {i+1}, File: {_namefile} - WRONG ❌ \nExpected output: {_output} Actual output: {str(stdout)}".ljust(
+                                    f"Testcase: {i+1}, File: {_namefile} - WRONG ❌ \nInput: \n{_input}Expected output: {_output} Actual output: {str(stdout)}".ljust(
                                         30))
                 except subprocess.TimeoutExpired:
                     p.kill()
@@ -110,11 +111,14 @@ class Test:
             elif not self.error and len(self.testcase) == 0:
                 print("------------------------------------")
                 print("\tNO TESTCASE FOUND! ")
+                exit(1)
             else:
                 print("------------------------------------")
                 print("\tNOT ALL TESTCASES PASSED! 😱")
+                exit(1)
         else:
             print(f"Exercise with the name: {self.name} NOT FOUND!")
+            exit(1)
 
     #  Windows, Linux or Mac
     def whatOs(self):

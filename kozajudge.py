@@ -17,17 +17,21 @@ def startProgram(ex="") -> None:
 ██║░╚██╗╚█████╔╝███████╗██║░░██║╚█████╔╝╚██████╔╝██████╔╝╚██████╔╝███████╗
 ╚═╝░░╚═╝░╚════╝░╚══════╝╚═╝░░╚═╝░╚════╝░░╚═════╝░╚═════╝░░╚═════╝░╚══════╝\n""")
 
+    real_path = os.path.realpath(os.path.dirname(__file__))
+
     if ex == "":
         file = input("Welcome to KozaJudge!\nPlease insert the name of the exercise: ")
     else:
         file = ex
-    if os.path.exists(os.getcwd() + "/Testcases"):
-        if os.path.exists(os.getcwd() + "/Exercises"):
+    if os.path.exists(real_path + "/Testcases"):
+        if os.path.exists(real_path + "/Exercises"):
             startJudging(file)
         else:
             print("Exercises not found. Please check the folders")
+            exit(1)
     else:
         print("Testcases were not found. Please check the folders")
+        exit(1)
 
 
 def main() -> None:
