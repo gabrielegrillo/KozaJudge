@@ -50,7 +50,7 @@ class Test:
 
         self.exist = self.fileExists()
 
-    def testExercise(self):
+    def testExercise(self,show):
         if self.exist:
             execString = [self.pythonDir, os.path.join(self.exPath, f"{self.name}.py")] 
             print(f"\t### TESTING {self.title} ###")
@@ -60,6 +60,9 @@ class Test:
                 _input = v["input"]
                 _output = v["output"]
                 p = subprocess.Popen(execString, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                
+                i_str = 'Input: \n'+_input
+                if not show: i_str = ''
 
                 try:
                     stdout, stderr = p.communicate(input=_input, timeout=self.timeout)
@@ -69,41 +72,23 @@ class Test:
                         # return normale con il for
                         # raise KozaError(stdout, stderr)
                         self.error = True
-                        if i < 9:
-                            print(f"Testcase: 0{i+1}, File: {_namefile} - ERROR ❌ \nInput: \n{_input}Expected output: {_output} Actual output: {str(stdout)} \nError: {stderr}".ljust(30))
-                        else:
-                            print(
-                                f"Testcase: {i+1}, File: {_namefile} - ERROR ❌ \nInput: \n{_input}Expected output: {_output} Actual output: {str(stdout)} \nError: {stderr}".ljust(
-                                    30))
+                        print(f"Testcase: {str(i+1).zfill(2)}, File: {_namefile} - ERROR ❌ \n{i_str}Expected output: {_output} Actual output: {str(stdout)} \nError: {stderr}".ljust(30))
                     else:
                         if _output == stdout:
-                            if i < 9:
-                                print(f"Testcase: 0{i+1} - CORRECT ✅".ljust(30))
-                            else:
-                                print(f"Testcase: {i+1} - CORRECT ✅".ljust(30))
+                            print(f"Testcase: {str(i+1).zfill(2)} - CORRECT ✅".ljust(30))
+  
                         elif (_output + "\n") == stdout:
                             self.error = True
-                            if i < 9:
-                                print(f"Testcase: 0{i+1}, File: {_namefile} - SEMI-CORRECT ⚠️  Check for the end = \"\" in the print")
-                            else:
-                                print(f"Testcase: {i+1}, File: {_namefile} - SEMI-CORRECT ⚠️  Check for the end = \"\" in the print")
+                            print(f"Testcase: {str(i+1).zfill(2)}, File: {_namefile} - SEMI-CORRECT ⚠️  Check for the end = \"\" in the print")
+                        
                         else:
                             self. error = True
-                            if i < 9:
-                                print(
-                                    f"Testcase: 0{i+1}, File: {_namefile} - WRONG ❌ \nInput: \n{_input}Expected output: {_output} Actual output: {str(stdout)}".ljust(
-                                        30))
-                            else:
-                                print(
-                                    f"Testcase: {i+1}, File: {_namefile} - WRONG ❌ \nInput: \n{_input}Expected output: {_output} Actual output: {str(stdout)}".ljust(
-                                        30))
+                            print(f"Testcase: {str(i+1).zfill(2)}, File: {_namefile} - WRONG ❌ \n{i_str}Expected output: {_output} Actual output: {str(stdout)}".ljust(30))
+                            
                 except subprocess.TimeoutExpired:
                     p.kill()
                     self.error = True
-                    if i < 9:
-                        print(f"Testcase: {v[i]} - TIMEOUT EXPIRED ⏰".ljust(30))
-                    else:
-                        print(f"Testcase: {v[i]} - TIMEOUT EXPIRED ⏰".ljust(30))
+                    print(f"Testcase: {v[i]} - TIMEOUT EXPIRED ⏰".ljust(30))
 
             if not self.error and len(self.testcase) >= 1:
                 print("------------------------------------")

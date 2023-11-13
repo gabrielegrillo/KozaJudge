@@ -1,0 +1,3 @@
+metti i file python in questa cartella, 
+per usare kozajudge esegui (da windows) py ./kozajudge.py NOME_ESERCIZIO
+per visualizzare anche gli input dei testcase non corretti specificare --show-input
