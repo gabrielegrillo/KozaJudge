@@ -1,0 +1,25 @@
+Inserisci la giocata del primo giocatore (1: sasso, 2: carta, 3: forbice):hai giocato sasso
+il PC ha giocato carta
+Vince il PC:
+0-1
+Inserisci la giocata del primo giocatore (1: sasso, 2: carta, 3: forbice):hai giocato carta
+il PC ha giocato carta
+Pari:
+0-1
+Inserisci la giocata del primo giocatore (1: sasso, 2: carta, 3: forbice):hai giocato sasso
+il PC ha giocato sasso
+Pari:
+0-1
+Inserisci la giocata del primo giocatore (1: sasso, 2: carta, 3: forbice):hai giocato forbice
+il PC ha giocato carta
+Vinci tu:
+1-1
+Inserisci la giocata del primo giocatore (1: sasso, 2: carta, 3: forbice):hai giocato carta
+il PC ha giocato forbice
+Vince il PC:
+1-2
+Inserisci la giocata del primo giocatore (1: sasso, 2: carta, 3: forbice):hai giocato sasso
+il PC ha giocato carta
+Vince il PC:
+1-3
+Il PC ha vinto la sfida!
