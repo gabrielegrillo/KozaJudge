@@ -90,15 +90,14 @@ class Test:
                     self.error = True
                     print(f"Testcase: {v[i]} - TIMEOUT EXPIRED ⏰".ljust(30))
 
-            if not self.error and len(self.testcase) >= 1:
-                print("------------------------------------")
-                print("\tALL TESTCASES PASSED! 🥳")
-            elif not self.error and len(self.testcase) == 0:
-                print("------------------------------------")
-                print("\tNO TESTCASE FOUND! ")
-                exit(1)
+            print("------------------------------------")
+            if not self.error:
+                if  len(self.testcase) >= 1:
+                    print("\tALL TESTCASES PASSED! 🥳")
+                else: #len(self.testcase) == 0
+                    print("\tNO TESTCASE FOUND! ")
+                    exit(1)
             else:
-                print("------------------------------------")
                 print("\tNOT ALL TESTCASES PASSED! 😱")
                 exit(1)
         else:
