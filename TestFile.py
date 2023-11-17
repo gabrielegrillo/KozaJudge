@@ -50,7 +50,7 @@ class Test:
 
         self.exist = self.fileExists()
 
-    def testExercise(self,show):
+    def testExercise(self,args):
         if self.exist:
             execString = [self.pythonDir, os.path.join(self.exPath, f"{self.name}.py")] 
             print(f"\t### TESTING {self.title} ###")
@@ -61,8 +61,14 @@ class Test:
                 _output = v["output"]
                 p = subprocess.Popen(execString, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
                 
-                i_str = 'Input: \n'+_input
-                if not show: i_str = ''
+                ## Modified by ThaDome23
+                dummy = _input
+                if args.small:
+                    dummy = dummy.replace('\n',' ')+'\n'
+                    print("🔔 WARNING input is shown without newlines 🔔")
+                i_str = 'Input: \n'+dummy
+                if not args.show_input: i_str = ''
+                ##
 
                 try:
                     stdout, stderr = p.communicate(input=_input, timeout=self.timeout)
