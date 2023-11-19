@@ -11,37 +11,44 @@ KozaJudge is a basic (also probably stupid) solutions checker for Python exceris
 
 ## Prerequisites
 
-Before downloading the repository, organise your exercises and solutions folder. 
-One folder for the exercises and the second one for the solutions.
+Clone the repository with
+```
+$ git clone https://github.com/gabrielegrillo/KozaJudge.git
+```
 
-The structure of the solutions folder is this:
+Create the exercises and solutions folders in the KozaJudge folder. 
+One folder is for the exercises and the second one is for the solutions.
+
+The final structure of the folder should be like this:
 ```
 Testcases/
-├── excercise1/
-│   ├── excercise1_1.in
-│   ├── excercise1_1.out
-│   ├── excercise1_2.in
-│   └── excercise1_2.out
-├── excercise2/
-│   ├── excercise2_1.in
-│   ├── excercise2_1.out
-├── excercise3/
-│   ├── excercise3_1.in
-│   ├── excercise3_1.out
+├── exercise1/
+│   ├── exercise1_1.in
+│   ├── exercise1_1.out
+│   ├── exercise1_2.in
+│   └── exercise1_2.out
+├── exercise2/
+│   ├── exercise2_1.in
+│   ├── exercise2_1.out
+├── exercise3/
+│   ├── exercise3_1.in
+│   ├── exercise3_1.out
 
 Exercises/
-├── excercise1.py
-├── excercise2.py
-├── excercise3.py
-```
-For each testcase there is a file with {name_excerise}\_{testcase_number}.in and {name_excerise}_{testcase_number}.out
+├── exercise1.py
+├── exercise2.py
+├── exercise3.py
 
-After that, clone the repository and follow the istructions' program.
+kozajudge.py
+TestFile.py
+...
+```
+For each testcase there is a file with `{name_exercise}_{testcase_number}.in` and `{name_exercise}_{testcase_number}.out`
 
 
 ## How to use it
 
-Download the last release. Then, open a terminal from the folder where the release is located. 
+Open a terminal from the folder where the release is located. 
 
 Execute the following command as shown: 
 <img src="multimedia/gifs/k2.gif">
@@ -49,6 +56,24 @@ Execute the following command as shown:
 
 or you can put the Exercise in the parameters of the command.
 <img src="multimedia/gifs/k1.gif">
+
+There are also two optional parameters:
+
+- `--show-input` or `-i`  for displaing the input in case of wrong answer
+
+- `--small` or `-s` (to be used with `-i`)  for displaing the input in case of wrong answer, but removing newlines for clarity
+
+Examples (for exercise Lab2Set):
+
+```
+python3 kozajudge.py Lab2Set
+```
+```
+python3 kozajudge.py Lab2Set --show-input
+```
+```
+python3 kozajudge.py Lab2Set --show-input --small
+```
 
 ## Contributors
 <a href="https://github.com/gabrielegrillo/KozaJudge/graphs/contributors">
